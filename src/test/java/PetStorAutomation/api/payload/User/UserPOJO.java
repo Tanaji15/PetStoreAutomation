@@ -1,4 +1,4 @@
-package PetStorAutomation.api.payload;
+package PetStorAutomation.api.payload.User;
 
 public class UserPOJO {
 

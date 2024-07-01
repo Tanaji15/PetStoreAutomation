@@ -7,7 +7,8 @@
     <test thread-count="5" name="PetTest">
         <classes>
 
-            <class name="PetStorAutomation.api.test.UserTestsUsingPropertiesFile"> </class>
+            <class name="PetStorAutomation.api.test.UserTests"> </class>
+            <class name="PetStorAutomation.api.test.PetTests"> </class>
         </classes>
     </test>
 </suite>
