@@ -1,7 +1,7 @@
 package PetStorAutomation.api.test;
 
 import PetStorAutomation.api.endpoints.UserEndPoints;
-import PetStorAutomation.api.payload.UserPOJO;
+import PetStorAutomation.api.payload.User.UserPOJO;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 
 
 public class UserTests {
@@ -70,7 +69,7 @@ public class UserTests {
 
         logger.info("******** User is updated **************");
         //to verify if the new data has been updated or not can be used for debug purpose
-     /*   Response responseAfterUpdate = UserEndPoints.ReadUser(this.userPayload.getUsername());
+     /*   Response responseAfterUpdate = UserEndPointsFromPropertiesFile.ReadUser(this.userPayload.getUsername());
         responseAfterUpdate.then().log().all(); */
     }
     @Test(priority = 4)

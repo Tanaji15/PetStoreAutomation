@@ -1,35 +1,34 @@
 package PetStorAutomation.api.endpoints;
-import PetStorAutomation.api.payload.UserPOJO;
+
+import PetStorAutomation.api.payload.User.UserPOJO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import static  io.restassured.RestAssured.*;
 
+import static io.restassured.RestAssured.given;
 
-// User endpoints file
-// Created for performing CRUD operations
 public class UserEndPoints {
 
-    public static Response createUser(UserPOJO payload)
-        {
+   public static Response createUser(UserPOJO payload)
+    {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(payload)
+                .when()
+                .post(Routes.getURL().getString("user_post_url"));
 
-            Response response = given()
-                    .contentType(ContentType.JSON)
-                    .accept(ContentType.JSON)
-                    .body(payload)
-                    .when()
-                    .post(Routes.post_URL);
-
-            return response;
-        }
+        return response;
+    }
 
     public static Response ReadUser(String userName)
     {
         Response response = given()
                 .pathParam("username", userName)
                 .when()
-                .get(Routes.get_URL);
+                .get(Routes.getURL().getString("user_get_url"));
         return response;
     }
+
 
     public static Response updateUser(UserPOJO payload, String userName)
     {
@@ -40,7 +39,7 @@ public class UserEndPoints {
                 .body(payload)
                 .pathParam("username", userName)
                 .when()
-                .put(Routes.update_URL);
+                .put(Routes.getURL().getString("user_update_url"));
 
         return response;
     }
@@ -50,8 +49,7 @@ public class UserEndPoints {
         Response response = given()
                 .pathParam("username", userName)
                 .when()
-                .delete(Routes.delete_URL);
+                .delete(Routes.getURL().getString("user_delete_url"));
         return response;
     }
-
 }
