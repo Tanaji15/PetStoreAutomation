@@ -9,6 +9,7 @@
 
             <class name="PetStorAutomation.api.test.UserTests"> </class>
             <class name="PetStorAutomation.api.test.PetTests"> </class>
+            <class name="PetStorAutomation.api.test.StoreTests"> </class>
         </classes>
     </test>
 </suite>
