@@ -57,18 +57,16 @@ public class PetTests {
     public void testCreateNewPet(){
         logger.info("******** Creating New Pet **************");
         Response response = PetEndPoints.createNewPet(petPayload);
-        response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
         logger.info("******** New Pet Created **************");
     }
 
     @Test(priority = 2)
     public void testGetPetDetails(){
-          logger.info("******** Creating New Pet **************");
+        logger.info("******** Creating New Pet **************");
         Response response = PetEndPoints.getPetDetailsByID(this.petPayload.getId());
-        response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
-         logger.info("******** New Pet Created **************");
+        logger.info("******** New Pet Created **************");
     }
 
     @Test(priority = 3)
@@ -76,30 +74,25 @@ public class PetTests {
 
         petPayload.setName(faker.animal().name());
         petPayload.setStatus("1");
-          logger.info("******** Creating New Pet **************");
+        logger.info("******** Creating New Pet **************");
         Response response = PetEndPoints.updatePetDetailsByID(petPayload);
-        response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
-         logger.info("******** New Pet Created **************");
+        logger.info("******** New Pet Created **************");
     }
 
     @Test(priority = 4)
     public void testDeletePetByID(){
-          logger.info("******** Creating New Pet **************");
+        logger.info("******** Creating New Pet **************");
         Response response = PetEndPoints.deletePetDetailsByID(this.petPayload.getId());
-        response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
-         logger.info("******** New Pet Created **************");
+        logger.info("******** New Pet Created **************");
     }
 
     @Test(priority = 5)
     public void testGetPetDetailsByStatus(){
         logger.info("******** Creating New Pet **************");
         Response response = PetEndPoints.getPetDetailsByStatus("available");
-        response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
-       logger.info("******** New Pet Created **************");
+        logger.info("******** New Pet Created **************");
     }
-
-
 }

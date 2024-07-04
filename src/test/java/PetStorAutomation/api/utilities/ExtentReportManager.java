@@ -1,27 +1,31 @@
 package PetStorAutomation.api.utilities;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.CodeLanguage;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.testng.ITest;
+import io.restassured.http.Header;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import com.aventstack.extentreports.ExtentTest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class ExtentReportManager implements ITestListener {
 
-    public ExtentSparkReporter sparkReporter;
-    public ExtentReports extent;
-    public ExtentTest test;
+    public static ExtentSparkReporter sparkReporter;
+    public static ExtentReports extent;
+    public static String repoName;
+    public static ExtentTest test;
+    public static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
 
-    String repoName;
-
-    public void onStart(ITestContext testContext)
+    //public static ExtentReports createInstance ()
+    public void onStart(ITestContext context)
     {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         repoName = "Index" +
@@ -38,38 +42,56 @@ public class ExtentReportManager implements ITestListener {
         extent.setSystemInfo("User Name", System.getProperty("user.name"));
         extent.setSystemInfo("Environment", "QA");
         extent.setSystemInfo("User", "Tanaji");
+       // return extent;
     }
 
-    public void onTestSuccess(ITestResult result)
+  /*  public void onStart(ITestContext context)
     {
-        test = extent.createTest(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.createNode(result.getName());
-        test.log(Status.PASS, "Test Passed");
+        extent=createInstance();
+    } */
+
+    public void onTestStart(ITestResult result)
+    {
+        test = extent.createTest("Test Name " +result.getTestClass().getName().toUpperCase() + " - " +result.getMethod().getMethodName().toUpperCase());
+        extentTest.set(test);
     }
 
-    public void onTestFailure(ITestResult result)
+    public static void logPassDetails(String log)
     {
-        test = extent.createTest(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.createNode(result.getName());
-        test.log(Status.FAIL, "Test Failed");
-        test.log(Status.FAIL, result.getThrowable().getMessage());
-
+        extentTest.get().pass(MarkupHelper.createLabel(log, ExtentColor.GREEN));
     }
 
-    public void onTestSkipped(ITestResult result)
+    public static void logFailureDetails(String log)
     {
-        test = extent.createTest(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.createNode(result.getName());
-        test.log(Status.SKIP, "Test Skipped");
-        test.log(Status.FAIL, result.getThrowable().getMessage());
+        extentTest.get().fail(MarkupHelper.createLabel(log, ExtentColor.RED));
+    }
 
+    public static void logInfoDetails(String log)
+    {
+        extentTest.get().info(MarkupHelper.createLabel(log, ExtentColor.GREY));
+    }
+
+    public static void logWarningDetails(String log)
+    {
+        extentTest.get().warning(MarkupHelper.createLabel(log, ExtentColor.YELLOW));
+    }
+
+    public static void logJson(String json)
+    {
+        extentTest.get().info(MarkupHelper.createCodeBlock(json, CodeLanguage.JSON));
+    }
+
+    public static void printHeaders(List<Header> headerList)
+    {
+       String[][] arrayHeaders = headerList.stream().map(header ->new String[] {header.getName(), header.getValue()})
+                       .toArray(String[][] ::new);
+
+        extentTest.get().info(MarkupHelper.createTable(arrayHeaders));
     }
 
     public void onFinish(ITestContext testContext)
     {
-        extent.flush();
+        if(extent!=null)
+            extent.flush();
     }
 }

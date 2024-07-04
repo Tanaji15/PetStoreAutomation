@@ -1,8 +1,8 @@
 package PetStorAutomation.api.endpoints;
 
 import PetStorAutomation.api.payload.Store.StorePOJO;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import static PetStorAutomation.api.endpoints.RequestBuilder.*;
 
 import static io.restassured.RestAssured.given;
 
@@ -10,42 +10,47 @@ public class StoreEndPoints {
 
    public static Response placeORder(StorePOJO payload)
     {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
+        Response response = given(requestSpecification)
                 .body(payload)
                 .when()
-                .post(Routes.getURL().getString("store_post_url"));
+                .post(getURL().getString("store_post_url"));
+        RequestBuilder.printRequestLogInReport(requestSpecification);
+        RequestBuilder.printResponseLogInReport(response);
 
         return response;
     }
 
     public static Response findOrderByID(int orderID)
     {
-        Response response = given()
+        Response response = given(requestSpecification)
                 .pathParam("orderid", orderID)
                 .when()
-                .get(Routes.getURL().getString("store_get_url"));
+                .get(getURL().getString("store_get_url"));
+        RequestBuilder.printRequestLogInReport(requestSpecification);
+        RequestBuilder.printResponseLogInReport(response);
+
         return response;
     }
 
     public static Response getInventoryByStatus()
     {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
+        Response response = given(requestSpecification)
                 .when()
-                .get(Routes.getURL().getString("store_get_inventtory_url"));
+                .get(getURL().getString("store_get_inventtory_url"));
+        RequestBuilder.printRequestLogInReport(requestSpecification);
+        RequestBuilder.printResponseLogInReport(response);
         return response;
     }
 
 
     public static Response deletePetByID(int orderID)
     {
-        Response response = given()
+        Response response = given(requestSpecification)
                 .pathParam("orderid", orderID)
                 .when()
-                .delete(Routes.getURL().getString("store_delete_url"));
+                .delete(getURL().getString("store_delete_url"));
+        RequestBuilder.printRequestLogInReport(requestSpecification);
+        RequestBuilder.printResponseLogInReport(response);
         return response;
     }
 }
