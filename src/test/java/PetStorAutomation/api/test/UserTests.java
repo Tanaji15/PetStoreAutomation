@@ -2,15 +2,9 @@ package PetStorAutomation.api.test;
 
 import PetStorAutomation.api.datagenerator.UserDataGeneration;
 import PetStorAutomation.api.enpoints.UserEndPoints;
-import PetStorAutomation.api.payload.User.UserPOJO;
-import com.github.javafaker.Faker;
 import io.restassured.response.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 
 public class UserTests extends UserDataGeneration {
 

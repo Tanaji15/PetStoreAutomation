@@ -1,19 +1,10 @@
 package PetStorAutomation.api.test;
 
 import PetStorAutomation.api.datagenerator.PetDataGeneration;
-import PetStorAutomation.api.payload.Pet.PetCategory;
-import PetStorAutomation.api.payload.Pet.PetPOJO;
-import PetStorAutomation.api.payload.Pet.PetTags;
 import PetStorAutomation.api.enpoints.PetEndPoints;
-import com.github.javafaker.Faker;
 import io.restassured.response.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
 
 public class PetTests extends PetDataGeneration {
 

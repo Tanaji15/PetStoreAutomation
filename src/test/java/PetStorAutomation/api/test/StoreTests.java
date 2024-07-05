@@ -2,16 +2,9 @@ package PetStorAutomation.api.test;
 
 import PetStorAutomation.api.datagenerator.StoreDataGeneration;
 import PetStorAutomation.api.enpoints.StoreEndPoints;
-import PetStorAutomation.api.payload.Store.StorePOJO;
-import com.github.javafaker.Faker;
 import io.restassured.response.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class StoreTests extends StoreDataGeneration {
