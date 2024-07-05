@@ -1,6 +1,7 @@
 package PetStorAutomation.api.test;
 
-import PetStorAutomation.api.endpoints.UserEndPoints;
+import PetStorAutomation.api.datagenerator.UserDataGeneration;
+import PetStorAutomation.api.enpoints.UserEndPoints;
 import PetStorAutomation.api.payload.User.UserPOJO;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -11,30 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
-public class UserTests {
-
-    Faker faker;
-    UserPOJO userPayload;
-    public Logger logger;
-    @BeforeClass
-    public void setup()
-    {
-        faker = new Faker();
-        userPayload = new UserPOJO();
-        userPayload.setId(faker.idNumber().hashCode());
-        userPayload.setUsername(faker.name().username());
-        userPayload.setFirstName(faker.name().firstName());
-        userPayload.setLastName(faker.name().lastName());
-        userPayload.setEmail(faker.internet().safeEmailAddress());
-        userPayload.setPassword(faker.internet().password(5,10));
-        userPayload.setPhone(faker.phoneNumber().phoneNumber());
-        userPayload.setUserStatus(0);
-
-        //logging initiation
-        logger = LogManager.getLogger(this.getClass());
-        logger.debug("Debugging .....");
-
-    }
+public class UserTests extends UserDataGeneration {
 
     @Test(priority = 1)
     public void testCreateUser()
@@ -63,14 +41,10 @@ public class UserTests {
         userPayload.setFirstName(faker.name().firstName());
         userPayload.setLastName(faker.name().lastName());
         userPayload.setEmail(faker.internet().safeEmailAddress());
-
         Response response = UserEndPoints.updateUser(userPayload,this.userPayload.getUsername());
         Assert.assertEquals(response.getStatusCode(),200);
-
         logger.info("******** User is updated **************");
-        //to verify if the new data has been updated or not can be used for debug purpose
-     /*   Response responseAfterUpdate = UserEndPointsFromPropertiesFile.ReadUser(this.userPayload.getUsername());
-        responseAfterUpdate.then().log().all(); */
+
     }
     @Test(priority = 4)
     public void testDeleteUser()

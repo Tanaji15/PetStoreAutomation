@@ -1,9 +1,10 @@
 package PetStorAutomation.api.test;
 
-import PetStorAutomation.api.endpoints.PetEndPoints;
+import PetStorAutomation.api.datagenerator.PetDataGeneration;
 import PetStorAutomation.api.payload.Pet.PetCategory;
 import PetStorAutomation.api.payload.Pet.PetPOJO;
 import PetStorAutomation.api.payload.Pet.PetTags;
+import PetStorAutomation.api.enpoints.PetEndPoints;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
@@ -13,45 +14,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.*;
 
-public class PetTests {
-
-    Faker faker;
-    PetPOJO petPayload;
-    PetCategory petCategory;
-    PetTags petTags;
-    public Logger logger;
-
-
-    @BeforeClass
-    public void setupPetData() {
-
-        faker = new Faker();
-        String URL = "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-out-1761385949";
-        ArrayList<PetTags> tagDetails = new ArrayList<PetTags>();
-        petTags = new PetTags();
-        petTags.setId(faker.random().nextInt(500));
-        petTags.setName(faker.animal().name());
-        tagDetails.add(petTags);
-        petCategory = new PetCategory();
-        petCategory.setId(faker.random().nextLong(500));
-        petCategory.setName(faker.funnyName().name());
-        ArrayList<String> fURL = new ArrayList<String>();
-        fURL.add(URL);
-
-        petPayload = new PetPOJO();
-        petPayload.setId(faker.random().nextLong(500));
-        petPayload.setCategory(petCategory);
-        petPayload.setName(faker.animal().name());
-        petPayload.setPhotoUrls(fURL);
-        petPayload.setTags(tagDetails);
-        petPayload.setStatus("0");
-
-        logger = LogManager.getLogger(this.getClass());
-        logger.debug("Debugging petStore API.....");
-
-    }
+public class PetTests extends PetDataGeneration {
 
     @Test(priority = 1)
     public void testCreateNewPet(){

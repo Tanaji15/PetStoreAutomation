@@ -1,6 +1,7 @@
 package PetStorAutomation.api.test;
 
-import PetStorAutomation.api.endpoints.StoreEndPoints;
+import PetStorAutomation.api.datagenerator.StoreDataGeneration;
+import PetStorAutomation.api.enpoints.StoreEndPoints;
 import PetStorAutomation.api.payload.Store.StorePOJO;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -13,29 +14,9 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 
-public class StoreTests {
+public class StoreTests extends StoreDataGeneration {
 
-    StorePOJO storePayload;
-    public Logger logger;
-    Faker faker;
     Response response;
-    @BeforeClass
-    public void setupStoreData()
-    {
-        faker = new Faker();
-        storePayload = new StorePOJO();
-        String status = "Placed";
-        storePayload.setId(faker.random().nextInt(500));
-        storePayload.setPetID(faker.random().nextInt(501,1000));
-        storePayload.setQuantity(faker.random().nextInt(5));
-        storePayload.setShipDate(faker.date().future(5, TimeUnit.MILLISECONDS));
-        storePayload.setStatus(status);
-        storePayload.setComplete(faker.bool().bool());
-
-        logger = LogManager.getLogger(this.getClass());
-        logger.info("***************Store Debug Started *************");
-    }
-
     @Test(priority = 1)
     public void testPlcePetOrder()
     {

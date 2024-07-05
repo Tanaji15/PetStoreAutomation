@@ -1,7 +1,5 @@
 package PetStorAutomation.api.payload.Pet;
 
-import com.github.javafaker.IdNumber;
-
 import java.util.ArrayList;
 
 public class PetPOJO {
