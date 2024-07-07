@@ -18,10 +18,10 @@ public class PetTests extends PetDataGeneration {
 
     @Test(priority = 2)
     public void testGetPetDetails(){
-        logger.info("******** Creating New Pet **************");
+        logger.info("********* Get Pet Details **************");
         Response response = PetEndPoints.getPetDetailsByID(this.petPayload.getId());
         Assert.assertEquals(response.getStatusCode(),200);
-        logger.info("******** New Pet Created **************");
+        logger.info("******** Pet Details displayed **************");
     }
 
     @Test(priority = 3)
@@ -29,25 +29,25 @@ public class PetTests extends PetDataGeneration {
 
         petPayload.setName(faker.animal().name());
         petPayload.setStatus("1");
-        logger.info("******** Creating New Pet **************");
+        logger.info("******** Update Pet record by ID **************");
         Response response = PetEndPoints.updatePetDetailsByID(petPayload);
         Assert.assertEquals(response.getStatusCode(),200);
-        logger.info("******** New Pet Created **************");
+        logger.info("******** Pet Record Updated **************");
     }
 
     @Test(priority = 4)
     public void testDeletePetByID(){
-        logger.info("******** Creating New Pet **************");
+        logger.info("******** Delete Pet record by ID **************");
         Response response = PetEndPoints.deletePetDetailsByID(this.petPayload.getId());
         Assert.assertEquals(response.getStatusCode(),200);
-        logger.info("******** New Pet Created **************");
+        logger.info("******** Pet Record Deleted **************");
     }
 
     @Test(priority = 5)
     public void testGetPetDetailsByStatus(){
-        logger.info("******** Creating New Pet **************");
+        logger.info("******** Get pet details by status **************");
         Response response = PetEndPoints.getPetDetailsByStatus("available");
         Assert.assertEquals(response.getStatusCode(),200);
-        logger.info("******** New Pet Created **************");
+        logger.info("******** pet details dispalyed **************");
     }
 }
